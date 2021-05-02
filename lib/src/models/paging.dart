@@ -9,11 +9,13 @@ Iterable<dynamic> itemsNativeFromJson(List<dynamic> json) => json;
 List<Map> itemsNativeToJson(Iterable<dynamic>? items) =>
     (items == null) ? [] : List.from(items);
 
-@JsonSerializable(createToJson: false)
+@JsonSerializable()
 class Paging<T> extends Object {
   Paging();
 
   factory Paging.fromJson(Map<String, dynamic> json) => _$PagingFromJson(json);
+
+  Map<String, dynamic> toJson() => _$PagingToJson(this);
 
   /// A link to the Web API endpoint returning the full result of the request.
   String? href;
