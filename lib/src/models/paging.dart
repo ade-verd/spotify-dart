@@ -9,7 +9,7 @@ Iterable<dynamic> itemsNativeFromJson(List<dynamic> json) => json;
 List<Map> itemsNativeToJson(Iterable<dynamic>? items) =>
     (items == null) ? [] : List.from(items);
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class Paging<T> extends Object {
   Paging();
 

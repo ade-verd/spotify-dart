@@ -3,7 +3,7 @@
 
 part of spotify.models;
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class Playlist extends Object implements PlaylistSimple {
   Playlist();
 
@@ -83,7 +83,7 @@ class Playlist extends Object implements PlaylistSimple {
   String? uri;
 }
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class PlaylistSimple extends Object {
   PlaylistSimple();
 
@@ -146,7 +146,7 @@ class PlaylistSimple extends Object {
   String? uri;
 }
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class PlaylistsFeatured extends Object {
   PlaylistsFeatured();
 
@@ -159,7 +159,7 @@ class PlaylistsFeatured extends Object {
   String? message;
 }
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class PlaylistTrack extends Object {
   PlaylistTrack();
 
