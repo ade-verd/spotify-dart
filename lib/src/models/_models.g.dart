@@ -151,9 +151,15 @@ AlbumSimple _$AlbumSimpleFromJson(Map<String, dynamic> json) {
     ..releaseDate = json['release_date'] as String?
     ..releaseDatePrecision = _$enumDecodeNullable(
         _$DatePrecisionEnumMap, json['release_date_precision'])
+<<<<<<< HEAD
     ..type = json['type'] as String?
     ..uri = json['uri'] as String?
     ..tracks = AlbumSimple._extractTracksFromPage(json['tracks']);
+=======
+    ..type = json['type'] as String
+    ..uri = json['uri'] as String
+    ..tracks = AlbumSimple._extractTracks(json['tracks']);
+>>>>>>> 3402076 (models: adapt extractTracks methods in AlbumSimple)
 }
 
 Map<String, dynamic> _$AlbumSimpleToJson(AlbumSimple instance) =>
