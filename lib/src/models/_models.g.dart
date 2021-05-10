@@ -50,12 +50,14 @@ Album _$AlbumFromJson(Map<String, dynamic> json) {
     ..releaseDate = json['release_date'] as String?
     ..releaseDatePrecision = _$enumDecodeNullable(
         _$DatePrecisionEnumMap, json['release_date_precision'])
-    ..type = json['type'] as String?
-    ..uri = json['uri'] as String?
-    ..tracks = AlbumSimple._extractTracksFromPage(json['tracks'])
-    ..copyrights = (json['copyrights'] as List<dynamic>?)
-        ?.map((e) => Copyright.fromJson(e as Map<String, dynamic>))
-        .toList()
+    ..type = json['type'] as String
+    ..uri = json['uri'] as String
+    ..tracks =
+        AlbumSimple._albumTracksFromJson(json['tracks'] as Map<String, dynamic>)
+    ..copyrights = (json['copyrights'] as List)
+        ?.map((e) =>
+            e == null ? null : Copyright.fromJson(e as Map<String, dynamic>))
+        ?.toList()
     ..externalIds = json['external_ids'] == null
         ? null
         : ExternalIds.fromJson(json['external_ids'] as Map<String, dynamic>)
@@ -79,7 +81,7 @@ Map<String, dynamic> _$AlbumToJson(Album instance) => <String, dynamic>{
           _$DatePrecisionEnumMap[instance.releaseDatePrecision],
       'type': instance.type,
       'uri': instance.uri,
-      'tracks': instance.tracks?.map((e) => e?.toJson())?.toList(),
+      'tracks': AlbumSimple._albumTracksToJson(instance.tracks),
       'copyrights': instance.copyrights?.map((e) => e?.toJson())?.toList(),
       'external_ids': instance.externalIds?.toJson(),
       'genres': instance.genres,
@@ -158,8 +160,13 @@ AlbumSimple _$AlbumSimpleFromJson(Map<String, dynamic> json) {
 =======
     ..type = json['type'] as String
     ..uri = json['uri'] as String
+<<<<<<< HEAD
     ..tracks = AlbumSimple._extractTracks(json['tracks']);
 >>>>>>> 3402076 (models: adapt extractTracks methods in AlbumSimple)
+=======
+    ..tracks = AlbumSimple._albumTracksFromJson(
+        json['tracks'] as Map<String, dynamic>);
+>>>>>>> 1556c87 (fix album tracks from/toJson)
 }
 
 Map<String, dynamic> _$AlbumSimpleToJson(AlbumSimple instance) =>
@@ -177,7 +184,7 @@ Map<String, dynamic> _$AlbumSimpleToJson(AlbumSimple instance) =>
           _$DatePrecisionEnumMap[instance.releaseDatePrecision],
       'type': instance.type,
       'uri': instance.uri,
-      'tracks': instance.tracks?.map((e) => e?.toJson())?.toList(),
+      'tracks': AlbumSimple._albumTracksToJson(instance.tracks),
     };
 
 Artist _$ArtistFromJson(Map<String, dynamic> json) {
