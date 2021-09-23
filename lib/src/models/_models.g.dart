@@ -50,14 +50,13 @@ Album _$AlbumFromJson(Map<String, dynamic> json) {
     ..releaseDate = json['release_date'] as String?
     ..releaseDatePrecision = _$enumDecodeNullable(
         _$DatePrecisionEnumMap, json['release_date_precision'])
-    ..type = json['type'] as String
-    ..uri = json['uri'] as String
+    ..type = json['type'] as String?
+    ..uri = json['uri'] as String?
     ..tracks =
         AlbumSimple._albumTracksFromJson(json['tracks'] as Map<String, dynamic>)
-    ..copyrights = (json['copyrights'] as List)
-        ?.map((e) =>
-            e == null ? null : Copyright.fromJson(e as Map<String, dynamic>))
-        ?.toList()
+    ..copyrights = (json['copyrights'] as List<dynamic>?)
+        ?.map((e) => Copyright.fromJson(e as Map<String, dynamic>))
+        .toList()
     ..externalIds = json['external_ids'] == null
         ? null
         : ExternalIds.fromJson(json['external_ids'] as Map<String, dynamic>)
@@ -69,12 +68,12 @@ Album _$AlbumFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$AlbumToJson(Album instance) => <String, dynamic>{
       'album_type': instance.albumType,
-      'artists': instance.artists?.map((e) => e?.toJson())?.toList(),
+      'artists': instance.artists?.map((e) => e.toJson()).toList(),
       'available_markets': instance.availableMarkets,
       'external_urls': instance.externalUrls?.toJson(),
       'href': instance.href,
       'id': instance.id,
-      'images': instance.images?.map((e) => e?.toJson())?.toList(),
+      'images': instance.images?.map((e) => e.toJson()).toList(),
       'name': instance.name,
       'release_date': instance.releaseDate,
       'release_date_precision':
@@ -82,17 +81,17 @@ Map<String, dynamic> _$AlbumToJson(Album instance) => <String, dynamic>{
       'type': instance.type,
       'uri': instance.uri,
       'tracks': AlbumSimple._albumTracksToJson(instance.tracks),
-      'copyrights': instance.copyrights?.map((e) => e?.toJson())?.toList(),
+      'copyrights': instance.copyrights?.map((e) => e.toJson()).toList(),
       'external_ids': instance.externalIds?.toJson(),
       'genres': instance.genres,
       'label': instance.label,
       'popularity': instance.popularity,
     };
 
-T _$enumDecode<T>(
-  Map<T, dynamic> enumValues,
-  dynamic source, {
-  T unknownValue,
+K _$enumDecode<K, V>(
+  Map<K, V> enumValues,
+  Object? source, {
+  K? unknownValue,
 }) {
   if (source == null) {
     throw ArgumentError(
@@ -153,31 +152,21 @@ AlbumSimple _$AlbumSimpleFromJson(Map<String, dynamic> json) {
     ..releaseDate = json['release_date'] as String?
     ..releaseDatePrecision = _$enumDecodeNullable(
         _$DatePrecisionEnumMap, json['release_date_precision'])
-<<<<<<< HEAD
     ..type = json['type'] as String?
     ..uri = json['uri'] as String?
-    ..tracks = AlbumSimple._extractTracksFromPage(json['tracks']);
-=======
-    ..type = json['type'] as String
-    ..uri = json['uri'] as String
-<<<<<<< HEAD
-    ..tracks = AlbumSimple._extractTracks(json['tracks']);
->>>>>>> 3402076 (models: adapt extractTracks methods in AlbumSimple)
-=======
     ..tracks = AlbumSimple._albumTracksFromJson(
         json['tracks'] as Map<String, dynamic>);
->>>>>>> 1556c87 (fix album tracks from/toJson)
 }
 
 Map<String, dynamic> _$AlbumSimpleToJson(AlbumSimple instance) =>
     <String, dynamic>{
       'album_type': instance.albumType,
-      'artists': instance.artists?.map((e) => e?.toJson())?.toList(),
+      'artists': instance.artists?.map((e) => e.toJson()).toList(),
       'available_markets': instance.availableMarkets,
       'external_urls': instance.externalUrls?.toJson(),
       'href': instance.href,
       'id': instance.id,
-      'images': instance.images?.map((e) => e?.toJson())?.toList(),
+      'images': instance.images?.map((e) => e.toJson()).toList(),
       'name': instance.name,
       'release_date': instance.releaseDate,
       'release_date_precision':
@@ -217,7 +206,7 @@ Map<String, dynamic> _$ArtistToJson(Artist instance) => <String, dynamic>{
       'uri': instance.uri,
       'followers': instance.followers?.toJson(),
       'genres': instance.genres,
-      'images': instance.images?.map((e) => e?.toJson())?.toList(),
+      'images': instance.images?.map((e) => e.toJson()).toList(),
       'popularity': instance.popularity,
     };
 
@@ -299,7 +288,7 @@ Category _$CategoryFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$CategoryToJson(Category instance) => <String, dynamic>{
       'href': instance.href,
-      'icons': instance.icons?.map((e) => e?.toJson())?.toList(),
+      'icons': instance.icons?.map((e) => e.toJson()).toList(),
       'id': instance.id,
       'name': instance.name,
     };
@@ -519,7 +508,7 @@ Map<String, dynamic> _$PlaylistToJson(Playlist instance) => <String, dynamic>{
       'followers': instance.followers?.toJson(),
       'href': instance.href,
       'id': instance.id,
-      'images': instance.images?.map((e) => e?.toJson())?.toList(),
+      'images': instance.images?.map((e) => e.toJson()).toList(),
       'name': instance.name,
       'owner': instance.owner?.toJson(),
       'public': instance.public,
@@ -557,10 +546,11 @@ PlaylistSimple _$PlaylistSimpleFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$PlaylistSimpleToJson(PlaylistSimple instance) =>
     <String, dynamic>{
       'collaborative': instance.collaborative,
+      'description': instance.description,
       'external_urls': instance.externalUrls?.toJson(),
       'href': instance.href,
       'id': instance.id,
-      'images': instance.images?.map((e) => e?.toJson())?.toList(),
+      'images': instance.images?.map((e) => e.toJson()).toList(),
       'name': instance.name,
       'owner': instance.owner?.toJson(),
       'public': instance.public,
@@ -613,8 +603,8 @@ Recommendations _$RecommendationsFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$RecommendationsToJson(Recommendations instance) =>
     <String, dynamic>{
-      'seeds': instance.seeds?.map((e) => e?.toJson())?.toList(),
-      'tracks': instance.tracks?.map((e) => e?.toJson())?.toList(),
+      'seeds': instance.seeds?.map((e) => e.toJson()).toList(),
+      'tracks': instance.tracks?.map((e) => e.toJson()).toList(),
     };
 
 RecommendationsSeed _$RecommendationsSeedFromJson(Map<String, dynamic> json) {
@@ -668,13 +658,13 @@ Show _$ShowFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$ShowToJson(Show instance) => <String, dynamic>{
       'available_markets': instance.availableMarkets,
-      'copyrights': instance.copyrights?.map((e) => e?.toJson())?.toList(),
+      'copyrights': instance.copyrights?.map((e) => e.toJson()).toList(),
       'description': instance.description,
       'explicit': instance.explicit,
       'external_urls': instance.externalUrls?.toJson(),
       'href': instance.href,
       'id': instance.id,
-      'images': instance.images?.map((e) => e?.toJson())?.toList(),
+      'images': instance.images?.map((e) => e.toJson()).toList(),
       'is_externally_hosted': instance.isExternallyHosted,
       'languages': instance.languages,
       'media_type': instance.mediaType,
@@ -720,7 +710,7 @@ Map<String, dynamic> _$EpisodeToJson(Episode instance) => <String, dynamic>{
       'external_urls': instance.externalUrls?.toJson(),
       'href': instance.href,
       'id': instance.id,
-      'images': instance.images?.map((e) => e?.toJson())?.toList(),
+      'images': instance.images?.map((e) => e.toJson()).toList(),
       'is_externally_hosted': instance.isExternallyHosted,
       'is_playable': instance.isPlayable,
       'language': instance.language,
@@ -768,7 +758,7 @@ Track _$TrackFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$TrackToJson(Track instance) => <String, dynamic>{
       'album': instance.album?.toJson(),
-      'artists': instance.artists?.map((e) => e?.toJson())?.toList(),
+      'artists': instance.artists?.map((e) => e.toJson()).toList(),
       'available_markets': instance.availableMarkets,
       'disc_number': instance.discNumber,
       'duration_ms': instance.durationMs,
@@ -816,7 +806,7 @@ TrackSimple _$TrackSimpleFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$TrackSimpleToJson(TrackSimple instance) =>
     <String, dynamic>{
-      'artists': instance.artists?.map((e) => e?.toJson())?.toList(),
+      'artists': instance.artists?.map((e) => e.toJson()).toList(),
       'available_markets': instance.availableMarkets,
       'disc_number': instance.discNumber,
       'duration_ms': instance.durationMs,
@@ -907,7 +897,7 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'followers': instance.followers?.toJson(),
       'href': instance.href,
       'id': instance.id,
-      'images': instance.images?.map((e) => e?.toJson())?.toList(),
+      'images': instance.images?.map((e) => e.toJson()).toList(),
       'product': instance.product,
       'type': instance.type,
       'uri': instance.uri,
@@ -934,7 +924,7 @@ Map<String, dynamic> _$UserPublicToJson(UserPublic instance) =>
       'followers': instance.followers?.toJson(),
       'href': instance.href,
       'id': instance.id,
-      'images': instance.images?.map((e) => e?.toJson())?.toList(),
+      'images': instance.images?.map((e) => e.toJson()).toList(),
       'type': instance.type,
       'uri': instance.uri,
     };
